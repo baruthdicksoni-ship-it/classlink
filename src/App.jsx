@@ -16,6 +16,7 @@ import NotFound from '@/pages/NotFound'
 
 import PlatformDashboard from '@/pages/platform/PlatformDashboard'
 import SchoolsList from '@/pages/platform/SchoolsList'
+import PlatformUsers from '@/pages/platform/PlatformUsers'
 
 import Dashboard from '@/pages/school/Dashboard'
 import StudentList from '@/pages/school/students/StudentList'
@@ -25,6 +26,7 @@ import Subjects from '@/pages/school/Subjects'
 import Exams from '@/pages/school/Exams'
 import Results from '@/pages/school/Results'
 import Teachers from '@/pages/school/Teachers'
+import SchoolUsers from '@/pages/school/SchoolUsers'
 import Fees from '@/pages/school/Fees'
 import Announcements from '@/pages/school/Announcements'
 import Settings from '@/pages/school/Settings'
@@ -49,7 +51,9 @@ function HomeRedirect() {
   if (!isAuthenticated) return <Navigate to="/ingia" replace />
 
   if (role === ROLES.SUPER_ADMIN) return <Navigate to="/platform" replace />
-  if (role === ROLES.SCHOOL_ADMIN || role === ROLES.TEACHER) return <Navigate to="/app" replace />
+  if (role === ROLES.SCHOOL_OWNER || role === ROLES.SCHOOL_ADMIN || role === ROLES.TEACHER) {
+    return <Navigate to="/app" replace />
+  }
   return <Navigate to="/portal" replace />
 }
 
@@ -75,13 +79,14 @@ export default function App() {
                 >
                   <Route index element={<PlatformDashboard />} />
                   <Route path="schools" element={<SchoolsList />} />
+                  <Route path="users" element={<PlatformUsers />} />
                 </Route>
 
                 {/* ---------- Shule (admin & mwalimu) ---------- */}
                 <Route
                   path="/app"
                   element={
-                    <ProtectedRoute roles={[ROLES.SCHOOL_ADMIN, ROLES.TEACHER]}>
+                    <ProtectedRoute roles={[ROLES.SCHOOL_OWNER, ROLES.SCHOOL_ADMIN, ROLES.TEACHER]}>
                       <AppShell nav={SCHOOL_NAV} />
                     </ProtectedRoute>
                   }
@@ -94,6 +99,7 @@ export default function App() {
                   <Route path="exams"         element={<ProtectedRoute permission="exams.view"><Exams /></ProtectedRoute>} />
                   <Route path="results"       element={<ProtectedRoute permission="results.view"><Results /></ProtectedRoute>} />
                   <Route path="teachers"      element={<ProtectedRoute permission="teachers.view"><Teachers /></ProtectedRoute>} />
+                  <Route path="users"         element={<ProtectedRoute permission="users.create"><SchoolUsers /></ProtectedRoute>} />
                   <Route path="fees"          element={<ProtectedRoute permission="fees.view"><Fees /></ProtectedRoute>} />
                   <Route path="announcements" element={<ProtectedRoute permission="announcements.view"><Announcements /></ProtectedRoute>} />
                   <Route path="settings"      element={<ProtectedRoute permission="settings.manage"><Settings /></ProtectedRoute>} />

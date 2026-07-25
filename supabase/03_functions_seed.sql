@@ -12,18 +12,44 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+  v_school_id uuid;
+  v_role      text;
 begin
+  v_school_id := nullif(new.raw_user_meta_data->>'school_id','')::uuid;
+  v_role      := coalesce(nullif(new.raw_user_meta_data->>'role',''), 'student');
+
+  -- Ulinzi: role isiyojulikana inarudi 'student'
+  if v_role not in ('super_admin','school_admin','teacher','parent','student') then
+    v_role := 'student';
+  end if;
+
+  -- Kama hakuna shule, mtumiaji huyu ni wa jukwaa (super_admin).
+  -- Bila hii, kutengeneza mtumiaji bila metadata kunavunja usajili mzima.
+  if v_school_id is null then
+    v_role := 'super_admin';
+  elsif v_role = 'super_admin' then
+    -- super_admin hapaswi kuwa na shule
+    v_school_id := null;
+  end if;
+
   insert into profiles (id, school_id, role, full_name, email, phone)
   values (
     new.id,
-    nullif(new.raw_user_meta_data->>'school_id','')::uuid,
-    coalesce(new.raw_user_meta_data->>'role', 'student'),
-    coalesce(new.raw_user_meta_data->>'full_name', split_part(new.email,'@',1)),
+    v_school_id,
+    v_role,
+    coalesce(nullif(new.raw_user_meta_data->>'full_name',''), split_part(new.email,'@',1)),
     new.email,
-    new.raw_user_meta_data->>'phone'
+    nullif(new.raw_user_meta_data->>'phone','')
   )
   on conflict (id) do nothing;
+
   return new;
+exception
+  when others then
+    -- Usajili usivunjike kwa sababu ya profile. Rekodi kosa, endelea.
+    raise warning 'handle_new_user imeshindwa kwa % : %', new.id, sqlerrm;
+    return new;
 end;
 $$;
 
@@ -102,16 +128,24 @@ set search_path = public
 as $$
 declare
   yr text := to_char(now(), 'YYYY');
-  n int;
+  n  int;
 begin
-  select coalesce(max(nullif(regexp_replace(admission_no, '\D', '', 'g'), '')::bigint), 0) + 1
+  -- Chukua SEHEMU YA MFULULIZO pekee (baada ya mwaka), si namba nzima.
+  -- Mfano: '2026001' -> '001' -> 1
+  select coalesce(
+           max(
+             nullif(regexp_replace(substring(admission_no from length(yr) + 1), '\D', '', 'g'), '')::bigint
+           ),
+           0
+         ) + 1
   into n
   from students
   where school_id = p_school_id
     and admission_no like yr || '%';
 
   if n is null or n < 1 then n := 1; end if;
-  return yr || lpad((n % 10000)::text, 4, '0');
+
+  return yr || lpad(n::text, 4, '0');
 end;
 $$;
 

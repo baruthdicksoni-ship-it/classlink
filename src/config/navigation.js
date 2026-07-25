@@ -1,5 +1,5 @@
 import {
-  LayoutDashboard, Users, GraduationCap, BookOpen, School,
+  LayoutDashboard, Users, UserCog, GraduationCap, BookOpen, School,
   ClipboardCheck, FileText, Wallet, Megaphone, BarChart3,
   Settings, Building2, ShieldCheck
 } from 'lucide-react'
@@ -40,7 +40,8 @@ export const SCHOOL_NAV = [
   {
     section: 'Wafanyakazi',
     items: [
-      { to: '/app/teachers', label: 'Walimu', icon: Users, permission: 'teachers.view' }
+      { to: '/app/teachers', label: 'Walimu', icon: Users, permission: 'teachers.view' },
+      { to: '/app/users', label: 'Watumiaji', icon: UserCog, permission: 'users.create' }
     ]
   },
   {

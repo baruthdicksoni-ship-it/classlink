@@ -5,6 +5,7 @@
 
 export const ROLES = {
   SUPER_ADMIN:  'super_admin',
+  SCHOOL_OWNER: 'school_owner',
   SCHOOL_ADMIN: 'school_admin',
   TEACHER:      'teacher',
   PARENT:       'parent',
@@ -13,7 +14,8 @@ export const ROLES = {
 
 export const ROLE_LABELS = {
   super_admin:  'Msimamizi Mkuu',
-  school_admin: 'Msimamizi wa Shule',
+  school_owner: 'Mmiliki wa Shule',
+  school_admin: 'Mkuu wa Shule',
   teacher:      'Mwalimu',
   parent:       'Mzazi',
   student:      'Mwanafunzi'
@@ -23,8 +25,10 @@ export const ROLE_LABELS = {
 export const PERMISSIONS = {
   super_admin: ['*'],
 
-  school_admin: [
+  // Mmiliki: kila kitu cha shule yake, pamoja na fedha na kutengeneza wakuu
+  school_owner: [
     'school.view', 'school.edit',
+    'users.create', 'users.manage',            // anaweza kutengeneza mkuu, mwalimu, n.k.
     'students.view', 'students.create', 'students.edit', 'students.delete',
     'teachers.view', 'teachers.create', 'teachers.edit', 'teachers.delete',
     'classes.view', 'classes.manage',
@@ -32,7 +36,23 @@ export const PERMISSIONS = {
     'attendance.view', 'attendance.record', 'attendance.edit',
     'exams.view', 'exams.manage', 'exams.publish',
     'results.view', 'results.enter', 'results.edit',
-    'fees.view', 'fees.manage', 'fees.collect',
+    'fees.view', 'fees.manage', 'fees.collect',   // FEDHA — owner pekee
+    'announcements.view', 'announcements.create',
+    'reports.view',
+    'settings.manage'
+  ],
+
+  // Mkuu: taaluma na utawala, LAKINI SI fedha, na hawezi kutengeneza wakuu wengine
+  school_admin: [
+    'school.view',
+    'users.create',                             // anaweza kutengeneza mwalimu/mzazi/mwanafunzi
+    'students.view', 'students.create', 'students.edit', 'students.delete',
+    'teachers.view', 'teachers.create', 'teachers.edit',
+    'classes.view', 'classes.manage',
+    'subjects.view', 'subjects.manage',
+    'attendance.view', 'attendance.record', 'attendance.edit',
+    'exams.view', 'exams.manage', 'exams.publish',
+    'results.view', 'results.enter', 'results.edit',
     'announcements.view', 'announcements.create',
     'reports.view',
     'settings.manage'
@@ -80,5 +100,18 @@ export function canAny(role, permissions = []) {
 }
 
 export const isPlatformRole = (role) => role === ROLES.SUPER_ADMIN
-export const isStaffRole = (role) => role === ROLES.SCHOOL_ADMIN || role === ROLES.TEACHER
+export const isManagerRole = (role) => role === ROLES.SCHOOL_OWNER || role === ROLES.SCHOOL_ADMIN
+export const isStaffRole = (role) =>
+  role === ROLES.SCHOOL_OWNER || role === ROLES.SCHOOL_ADMIN || role === ROLES.TEACHER
 export const isFamilyRole = (role) => role === ROLES.PARENT || role === ROLES.STUDENT
+
+// Nani anaweza kutengeneza role gani (lazima ilingane na Edge Function)
+export const CREATABLE_ROLES = {
+  super_admin:  ['super_admin', 'school_owner', 'school_admin', 'teacher', 'parent', 'student'],
+  school_owner: ['school_admin', 'teacher', 'parent', 'student'],
+  school_admin: ['teacher', 'parent', 'student']
+}
+
+export function rolesCreatableBy(role) {
+  return CREATABLE_ROLES[role] || []
+}
