@@ -8,13 +8,13 @@ export function Table({ children, className = '' }) {
 
 export function THead({ columns = [] }) {
   return (
-    <thead>
+    <thead className="sticky top-0 z-10 bg-slate-50/95 backdrop-blur">
       <tr>
         {columns.map((c, i) => (
           <th
             key={i}
             className={`px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider
-                        text-slate-400 whitespace-nowrap border-b border-slate-100
+                        text-slate-500 whitespace-nowrap border-b border-slate-200
                         ${c.align === 'right' ? 'text-right' : ''}`}
             style={c.width ? { width: c.width } : undefined}
           >
@@ -34,7 +34,7 @@ export function TR({ children, onClick, className = '' }) {
   return (
     <tr
       onClick={onClick}
-      className={`${onClick ? 'cursor-pointer' : ''} transition-colors hover:bg-slate-50/60 ${className}`}
+      className={`${onClick ? 'cursor-pointer' : ''} transition-colors even:bg-slate-50/40 hover:bg-brand-50/50 ${className}`}
     >
       {children}
     </tr>

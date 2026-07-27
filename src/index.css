@@ -6,7 +6,7 @@
   html { -webkit-tap-highlight-color: transparent; }
   body {
     @apply text-slate-800 antialiased;
-    background-color: #fafbfc;
+    background-color: #f8fafc;
   }
   *:focus-visible { @apply outline-none ring-2 ring-brand-500/60 ring-offset-2 ring-offset-white; }
 }
@@ -43,6 +43,10 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-up { animation: fadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
