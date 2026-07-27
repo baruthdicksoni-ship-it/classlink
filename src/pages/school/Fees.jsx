@@ -122,7 +122,7 @@ export default function Fees() {
     <>
       <PageHeader
         title="Ada"
-        subtitle={`Ankara ${invoices.length}`}
+        subtitle={can('fees.manage') ? `Ankara ${invoices.length}` : `Ankara ${invoices.length} · unaona tu`}
         action={can('fees.manage') && <Button icon={Plus} onClick={() => { setErrors({}); setInvoiceOpen(true) }}>Tengeneza ankara</Button>}
       />
 

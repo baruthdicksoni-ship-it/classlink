@@ -53,6 +53,7 @@ export const PERMISSIONS = {
     'attendance.view', 'attendance.record', 'attendance.edit',
     'exams.view', 'exams.manage', 'exams.publish',
     'results.view', 'results.enter', 'results.edit',
+    'fees.view',                                // AONA ada, lakini SI kutengeneza/kupokea
     'announcements.view', 'announcements.create',
     'reports.view',
     'settings.manage'
