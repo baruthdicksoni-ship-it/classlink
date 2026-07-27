@@ -6,6 +6,7 @@ import Spinner from '@/components/ui/Spinner'
 import { Card, CardHeader } from '@/components/ui/Card'
 import { Table, THead, TBody, TR, TD } from '@/components/ui/Table'
 import Badge from '@/components/ui/Badge'
+import EmptyState from '@/components/ui/EmptyState'
 import { formatDate, formatNumber } from '@/utils/format'
 
 export default function PlatformDashboard() {
@@ -36,27 +37,35 @@ export default function PlatformDashboard() {
 
       <Card className="mt-8">
         <CardHeader title="Shule zilizosajiliwa karibuni" />
-        <Table>
-          <THead columns={[
-            { label: 'Shule' }, { label: 'Mkoa' }, { label: 'Kifurushi' },
-            { label: 'Hali' }, { label: 'Tarehe' }
-          ]} />
-          <TBody>
-            {schools.slice(0, 10).map((s) => (
-              <TR key={s.id}>
-                <TD className="font-medium text-slate-900">{s.name}</TD>
-                <TD>{s.region || '—'}</TD>
-                <TD className="uppercase text-xs">{s.subscription_plan}</TD>
-                <TD>
-                  <Badge tone={s.is_active ? 'green' : 'red'}>
-                    {s.is_active ? 'Hai' : 'Imesimamishwa'}
-                  </Badge>
-                </TD>
-                <TD className="text-xs">{formatDate(s.created_at)}</TD>
-              </TR>
-            ))}
-          </TBody>
-        </Table>
+        {schools.length === 0 ? (
+          <EmptyState
+            icon={Building2}
+            title="Hakuna shule bado"
+            description="Sajili shule ya kwanza kwenye ukurasa wa Shule ili kuanza."
+          />
+        ) : (
+          <Table>
+            <THead columns={[
+              { label: 'Shule' }, { label: 'Mkoa' }, { label: 'Kifurushi' },
+              { label: 'Hali' }, { label: 'Tarehe' }
+            ]} />
+            <TBody>
+              {schools.slice(0, 10).map((s) => (
+                <TR key={s.id}>
+                  <TD className="font-medium text-slate-900">{s.name}</TD>
+                  <TD>{s.region || '—'}</TD>
+                  <TD className="uppercase text-xs">{s.subscription_plan}</TD>
+                  <TD>
+                    <Badge tone={s.is_active ? 'green' : 'red'}>
+                      {s.is_active ? 'Hai' : 'Imesimamishwa'}
+                    </Badge>
+                  </TD>
+                  <TD className="text-xs">{formatDate(s.created_at)}</TD>
+                </TR>
+              ))}
+            </TBody>
+          </Table>
+        )}
       </Card>
     </>
   )

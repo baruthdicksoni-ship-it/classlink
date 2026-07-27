@@ -1,17 +1,17 @@
 import { Loader2 } from 'lucide-react'
 
 const variants = {
-  primary:   'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 shadow-sm',
-  secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 shadow-sm',
+  primary:   'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 shadow-sm shadow-brand-600/20',
+  secondary: 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-slate-300',
   ghost:     'text-slate-600 hover:bg-slate-100',
-  danger:    'bg-red-600 text-white hover:bg-red-700 shadow-sm',
+  danger:    'bg-red-600 text-white hover:bg-red-700 shadow-sm shadow-red-600/20',
   subtle:    'bg-brand-50 text-brand-700 hover:bg-brand-100'
 }
 
 const sizes = {
   sm: 'h-8 px-3 text-sm gap-1.5',
   md: 'h-10 px-4 text-sm gap-2',
-  lg: 'h-11 px-6 text-base gap-2',
+  lg: 'h-11 px-6 text-[15px] gap-2',
   icon: 'h-9 w-9'
 }
 
@@ -28,8 +28,8 @@ export default function Button({
   return (
     <button
       disabled={disabled || loading}
-      className={`inline-flex items-center justify-center rounded-lg font-medium
-                  transition-colors disabled:opacity-50 disabled:pointer-events-none
+      className={`inline-flex items-center justify-center rounded-xl font-medium
+                  transition-all duration-150 disabled:opacity-50 disabled:pointer-events-none
                   ${variants[variant]} ${sizes[size]} ${className}`}
       {...props}
     >

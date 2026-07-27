@@ -157,7 +157,8 @@ export default function CreateUserModal({ open, onClose, allowedRoles, schoolId,
       footer={
         <>
           <Button variant="secondary" onClick={onClose} disabled={createUser.isPending}>Ghairi</Button>
-          <Button icon={UserPlus} onClick={handleSubmit} loading={createUser.isPending}>Tengeneza</Button>
+          <Button icon={UserPlus} onClick={handleSubmit} loading={createUser.isPending}
+                  disabled={needsSchoolPicker && schools.length === 0}>Tengeneza</Button>
         </>
       }
     >
@@ -175,9 +176,19 @@ export default function CreateUserModal({ open, onClose, allowedRoles, schoolId,
           <Select label="Jinsia" value={form.gender} onChange={set('gender')} placeholder="Si lazima"
                   options={[{ value: 'male', label: 'Mume' }, { value: 'female', label: 'Mke' }]} />
           {needsSchoolPicker && (
-            <Select label="Shule" value={pickedSchool} onChange={(e) => setPickedSchool(e.target.value)}
-                    placeholder="Chagua shule" error={errors.school}
-                    options={schools.map((s) => ({ value: s.id, label: s.name }))} />
+            schools.length === 0 ? (
+              <div className="sm:col-span-2 rounded-xl bg-amber-50 px-4 py-3 ring-1 ring-amber-200">
+                <p className="text-sm font-medium text-amber-800">Hakuna shule bado</p>
+                <p className="mt-0.5 text-sm text-amber-700">
+                  Lazima usajili shule kwanza kabla ya kutengeneza mmiliki au mtumiaji wake.
+                  Funga dirisha hili, nenda <span className="font-medium">Shule → Sajili shule</span>, kisha rudi hapa.
+                </p>
+              </div>
+            ) : (
+              <Select label="Shule" value={pickedSchool} onChange={(e) => setPickedSchool(e.target.value)}
+                      placeholder="Chagua shule" error={errors.school}
+                      options={schools.map((s) => ({ value: s.id, label: s.name }))} />
+            )
           )}
         </div>
 

@@ -36,25 +36,29 @@ export default function Login() {
   return (
     <div className="flex min-h-screen">
       {/* Upande wa kushoto — nembo */}
-      <div className="hidden w-1/2 flex-col justify-between bg-brand-700 p-12 lg:flex">
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white">
+      <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 p-12 lg:flex">
+        {/* Mchoro hafifu wa mandharinyuma */}
+        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-white/5 blur-2xl" />
+        <div className="pointer-events-none absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-brand-400/10 blur-2xl" />
+
+        <div className="relative flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/95 shadow-lg shadow-brand-900/20">
             <GraduationCap className="h-6 w-6 text-brand-700" />
           </div>
           <span className="text-xl font-bold text-white">ClassLink</span>
         </div>
 
-        <div>
-          <h1 className="text-4xl font-bold leading-tight text-white">
+        <div className="relative">
+          <h1 className="text-[2.6rem] font-bold leading-[1.1] tracking-tight text-white">
             Mfumo kamili wa<br />usimamizi wa shule
           </h1>
-          <p className="mt-4 max-w-md text-brand-100">
+          <p className="mt-5 max-w-md text-[15px] leading-relaxed text-brand-100">
             Wanafunzi, mahudhurio, mitihani, matokeo na ada — mahali pamoja,
             kwa lugha unayoielewa.
           </p>
         </div>
 
-        <p className="text-sm text-brand-200">© {new Date().getFullYear()} ClassLink</p>
+        <p className="relative text-sm text-brand-200/80">© {new Date().getFullYear()} ClassLink</p>
       </div>
 
       {/* Upande wa kulia — fomu */}

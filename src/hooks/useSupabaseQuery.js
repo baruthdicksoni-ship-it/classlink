@@ -55,15 +55,18 @@ export function useRecord(table, id, { select = '*', enabled = true } = {}) {
 // ------------------------------------------------------------
 // Ongeza / Badilisha / Futa
 // ------------------------------------------------------------
-export function useInsert(table) {
+export function useInsert(table, { scopeToSchool = true } = {}) {
   const qc = useQueryClient()
   const { schoolId } = useAuth()
 
   return useMutation({
     mutationFn: async (payload) => {
-      const body = Array.isArray(payload)
-        ? payload.map((r) => ({ school_id: schoolId, ...r }))
-        : { school_id: schoolId, ...payload }
+      // Ongeza school_id kiotomatiki tu kama jedwali linalihitaji NA tuna schoolId.
+      // Majedwali kama 'schools' hayana column ya school_id.
+      const addScope = (r) =>
+        scopeToSchool && schoolId ? { school_id: schoolId, ...r } : r
+
+      const body = Array.isArray(payload) ? payload.map(addScope) : addScope(payload)
 
       const { data, error } = await supabase.from(table).insert(body).select()
       if (error) throw new Error(translateError(error))

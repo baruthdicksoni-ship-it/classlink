@@ -1,6 +1,24 @@
+# Dependencies
 node_modules
+
+# Build
 dist
+dist-ssr
+
+# Siri — KAMWE zisiende GitHub
 .env
 .env.local
+.env.*.local
+.env.production
+
+# Supabase
+supabase/.branches
+supabase/.temp
+**/supabase/.env
+
+# Mfumo
 .DS_Store
 *.log
+npm-debug.log*
+.vscode/*
+!.vscode/extensions.json

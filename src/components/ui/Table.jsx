@@ -8,13 +8,14 @@ export function Table({ children, className = '' }) {
 
 export function THead({ columns = [] }) {
   return (
-    <thead className="bg-slate-50 text-left">
+    <thead>
       <tr>
         {columns.map((c, i) => (
           <th
             key={i}
-            className={`px-4 py-3 font-medium text-slate-600 whitespace-nowrap
-                        border-b border-slate-200 ${c.align === 'right' ? 'text-right' : ''}`}
+            className={`px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider
+                        text-slate-400 whitespace-nowrap border-b border-slate-100
+                        ${c.align === 'right' ? 'text-right' : ''}`}
             style={c.width ? { width: c.width } : undefined}
           >
             {c.label}
@@ -26,14 +27,14 @@ export function THead({ columns = [] }) {
 }
 
 export function TBody({ children }) {
-  return <tbody className="divide-y divide-slate-100">{children}</tbody>
+  return <tbody className="divide-y divide-slate-50">{children}</tbody>
 }
 
 export function TR({ children, onClick, className = '' }) {
   return (
     <tr
       onClick={onClick}
-      className={`${onClick ? 'cursor-pointer' : ''} hover:bg-slate-50/70 transition-colors ${className}`}
+      className={`${onClick ? 'cursor-pointer' : ''} transition-colors hover:bg-slate-50/60 ${className}`}
     >
       {children}
     </tr>
@@ -42,7 +43,7 @@ export function TR({ children, onClick, className = '' }) {
 
 export function TD({ children, align, className = '' }) {
   return (
-    <td className={`px-4 py-3 text-slate-700 ${align === 'right' ? 'text-right' : ''} ${className}`}>
+    <td className={`px-6 py-4 text-slate-600 ${align === 'right' ? 'text-right' : ''} ${className}`}>
       {children}
     </td>
   )

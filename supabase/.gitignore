@@ -22,3 +22,12 @@ supabase/.temp
 npm-debug.log*
 .vscode/*
 !.vscode/extensions.json
+
+# Supabase
+.branches
+.temp
+
+# dotenvx
+.env.keys
+.env.local
+.env.*.local

@@ -10,15 +10,24 @@ function NavItem({ item, onNavigate }) {
       end={item.end}
       onClick={onNavigate}
       className={({ isActive }) =>
-        `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+        `group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
           isActive
-            ? 'bg-brand-600 text-white'
-            : 'text-slate-600 hover:bg-brand-50 hover:text-brand-700'
+            ? 'bg-brand-50 text-brand-700'
+            : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'
         }`
       }
     >
-      <Icon className="h-[18px] w-[18px] shrink-0" />
-      <span className="truncate">{item.label}</span>
+      {({ isActive }) => (
+        <>
+          <span
+            className={`absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-brand-600 transition-opacity ${
+              isActive ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+          <Icon className={`h-[18px] w-[18px] shrink-0 ${isActive ? 'text-brand-600' : 'text-slate-400 group-hover:text-slate-600'}`} />
+          <span className="truncate">{item.label}</span>
+        </>
+      )}
     </NavLink>
   )
 }
@@ -40,26 +49,26 @@ export default function Sidebar({ nav = [], open, onClose, flat = false }) {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 border-r border-slate-200 bg-white
+        className={`fixed inset-y-0 left-0 z-40 w-64 border-r border-slate-200/70 bg-white
                     transition-transform lg:translate-x-0 lg:static lg:z-auto
                     ${open ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="flex h-full flex-col">
           {/* Nembo */}
-          <div className="flex h-16 items-center justify-between border-b border-slate-200 px-4">
-            <div className="flex min-w-0 items-center gap-2.5">
+          <div className="flex h-16 items-center justify-between px-5">
+            <div className="flex min-w-0 items-center gap-3">
               {school?.logo_url ? (
-                <img src={school.logo_url} alt="" className="h-9 w-9 rounded-lg object-cover" />
+                <img src={school.logo_url} alt="" className="h-9 w-9 rounded-xl object-cover" />
               ) : (
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-700 shadow-sm shadow-brand-600/20">
                   <GraduationCap className="h-5 w-5 text-white" />
                 </div>
               )}
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-slate-900">
+                <p className="truncate text-[15px] font-semibold text-slate-900">
                   {school?.name || 'ClassLink'}
                 </p>
-                <p className="text-[11px] text-slate-400">ClassLink</p>
+                <p className="text-[11px] font-medium text-slate-400">ClassLink</p>
               </div>
             </div>
             <button onClick={onClose} className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 lg:hidden">
@@ -68,7 +77,7 @@ export default function Sidebar({ nav = [], open, onClose, flat = false }) {
           </div>
 
           {/* Menu */}
-          <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-4">
+          <nav className="flex-1 space-y-7 overflow-y-auto px-3 pb-4 pt-2">
             {sections.map((s, i) => (
               <div key={i}>
                 {s.section && (
@@ -85,8 +94,8 @@ export default function Sidebar({ nav = [], open, onClose, flat = false }) {
             ))}
           </nav>
 
-          <div className="border-t border-slate-200 px-4 py-3">
-            <p className="text-[11px] text-slate-400">ClassLink v3.0</p>
+          <div className="px-5 py-4">
+            <p className="text-[11px] text-slate-300">ClassLink v3.0</p>
           </div>
         </div>
       </aside>

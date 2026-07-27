@@ -4,24 +4,45 @@
 
 @layer base {
   html { -webkit-tap-highlight-color: transparent; }
-  body { @apply bg-slate-50 text-slate-900 antialiased; }
-  *:focus-visible { @apply outline-none ring-2 ring-brand-500 ring-offset-2; }
+  body {
+    @apply text-slate-800 antialiased;
+    background-color: #fafbfc;
+  }
+  *:focus-visible { @apply outline-none ring-2 ring-brand-500/60 ring-offset-2 ring-offset-white; }
 }
 
 @layer components {
-  .card { @apply bg-white rounded-xl border border-slate-200 shadow-sm; }
-  .input {
-    @apply w-full rounded-lg border border-slate-300 px-3 py-2 text-sm
-           placeholder:text-slate-400 focus:border-brand-500 focus:ring-1
-           focus:ring-brand-500 disabled:bg-slate-100 disabled:text-slate-500;
+  .card {
+    @apply bg-white rounded-2xl border border-slate-200/70;
+    box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.03);
   }
-  .label { @apply block text-sm font-medium text-slate-700 mb-1.5; }
+
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm
+           text-slate-800 placeholder:text-slate-400
+           transition-colors
+           focus:border-brand-400 focus:ring-4 focus:ring-brand-500/10
+           disabled:bg-slate-50 disabled:text-slate-400;
+  }
+
+  .label { @apply block text-sm font-medium text-slate-600 mb-1.5; }
 }
 
-::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: #cbd5e1; background-clip: content-box; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

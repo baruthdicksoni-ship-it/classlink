@@ -34,7 +34,7 @@ export default function SchoolsList() {
     order: { column: 'created_at', ascending: false }
   })
 
-  const insert = useInsert('schools')
+  const insert = useInsert('schools', { scopeToSchool: false })
   const update = useUpdate('schools')
 
   const set = (f) => (e) => setForm((p) => ({ ...p, [f]: e.target.value }))
