@@ -1,10 +1,11 @@
 import { useState, useMemo } from 'react'
-import { Users, Pencil, Trash2, Mail, Phone } from 'lucide-react'
+import { Users, Pencil, Trash2, Mail, Phone, UserPlus } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useTable, useUpdate, useDelete } from '@/hooks/useSupabaseQuery'
 import { useToast } from '@/components/ui/Toast'
 import PageHeader from '@/components/shared/PageHeader'
 import SearchInput from '@/components/shared/SearchInput'
+import CreateUserModal from '@/components/shared/CreateUserModal'
 import { Card } from '@/components/ui/Card'
 import { Table, THead, TBody, TR, TD } from '@/components/ui/Table'
 import Modal from '@/components/ui/Modal'
@@ -23,6 +24,7 @@ export default function Teachers() {
   const [search, setSearch] = useState('')
   const [editing, setEditing] = useState(null)
   const [deleting, setDeleting] = useState(null)
+  const [createOpen, setCreateOpen] = useState(false)
   const [form, setForm] = useState({ full_name: '', phone: '' })
   const [errors, setErrors] = useState({})
 
@@ -88,6 +90,9 @@ export default function Teachers() {
       <PageHeader
         title="Walimu"
         subtitle={`${teachers.length} walimu`}
+        action={can('users.create') && (
+          <Button icon={UserPlus} onClick={() => setCreateOpen(true)}>Tengeneza mwalimu</Button>
+        )}
       />
 
       <div className="mb-4 sm:w-80">
@@ -99,7 +104,10 @@ export default function Teachers() {
           <EmptyState
             icon={Users}
             title="Hakuna walimu"
-            description="Walimu wanaongezwa kupitia mwaliko wa barua pepe kwenye Mipangilio."
+            description="Bofya “Tengeneza mwalimu” kumsajili mwalimu, kisha umkabidhi barua pepe na nenosiri la kuingia."
+            action={can('users.create') && (
+              <Button icon={UserPlus} onClick={() => setCreateOpen(true)}>Tengeneza mwalimu</Button>
+            )}
           />
         ) : (
           <Table>
@@ -165,6 +173,13 @@ export default function Teachers() {
         open={Boolean(deleting)} onClose={() => setDeleting(null)} onConfirm={confirmDelete}
         loading={remove.isPending} title="Futa mwalimu"
         message="Mwalimu ataondolewa kwenye shule hii. Endelea?" confirmLabel="Futa"
+      />
+
+      <CreateUserModal
+        open={createOpen}
+        onClose={() => setCreateOpen(false)}
+        allowedRoles={['teacher']}
+        title="Tengeneza mwalimu"
       />
     </>
   )
