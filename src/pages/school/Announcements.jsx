@@ -103,7 +103,7 @@ export default function Announcements() {
                   <p className="mt-2 text-xs text-slate-400">{formatDate(a.created_at)}</p>
                 </div>
                 {can('announcements.create') && (
-                  <button onClick={() => setDeleting(a)} className="shrink-0 rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                  <button onClick={() => setDeleting(a)} className="shrink-0 rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 )}

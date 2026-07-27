@@ -134,7 +134,7 @@ export default function SchoolsList() {
                   </TD>
                   <TD className="text-xs">{formatDate(s.created_at)}</TD>
                   <TD align="right">
-                    <button onClick={() => openEdit(s)} className="rounded-lg p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
+                    <button onClick={() => openEdit(s)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
                       <Pencil className="h-4 w-4" />
                     </button>
                   </TD>

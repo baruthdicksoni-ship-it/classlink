@@ -125,10 +125,10 @@ export default function Subjects() {
                   <TD align="right">
                     {can('subjects.manage') && (
                       <div className="flex justify-end gap-1">
-                        <button onClick={() => openEdit(s)} className="rounded-lg p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
+                        <button onClick={() => openEdit(s)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
                           <Pencil className="h-4 w-4" />
                         </button>
-                        <button onClick={() => setDeleting(s)} className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                        <button onClick={() => setDeleting(s)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
                           <Trash2 className="h-4 w-4" />
                         </button>
                       </div>

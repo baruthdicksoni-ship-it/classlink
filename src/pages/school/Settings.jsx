@@ -101,7 +101,7 @@ export default function Settings() {
                   <TD className="text-slate-500">{g.remarks || '—'}</TD>
                   <TD align="right">
                     <button onClick={() => deleteScale.mutate(g.id)}
-                            className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                            className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </TD>

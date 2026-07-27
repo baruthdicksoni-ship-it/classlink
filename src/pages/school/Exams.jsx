@@ -139,7 +139,7 @@ export default function Exams() {
                       {can('exams.publish') && (
                         <button
                           onClick={() => togglePublish(x)}
-                          className="rounded-lg p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600"
+                          className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600"
                           title={x.is_published ? 'Ficha matokeo' : 'Tangaza matokeo'}
                         >
                           {x.is_published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -147,10 +147,10 @@ export default function Exams() {
                       )}
                       {can('exams.manage') && (
                         <>
-                          <button onClick={() => openEdit(x)} className="rounded-lg p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
+                          <button onClick={() => openEdit(x)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
                             <Pencil className="h-4 w-4" />
                           </button>
-                          <button onClick={() => setDeleting(x)} className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                          <button onClick={() => setDeleting(x)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </>

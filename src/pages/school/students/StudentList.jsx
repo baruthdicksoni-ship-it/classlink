@@ -17,9 +17,9 @@ import StudentForm from './StudentForm'
 import { fullName, GENDER_LABELS, STUDENT_STATUS } from '@/utils/format'
 
 const COLUMNS = [
-  { label: 'Namba' },
+  { label: 'Namba', hideOnMobile: true },
   { label: 'Jina' },
-  { label: 'Jinsia' },
+  { label: 'Jinsia', hideOnMobile: true },
   { label: 'Darasa' },
   { label: 'Hali' },
   { label: '', width: 90, align: 'right' }
@@ -124,9 +124,9 @@ export default function StudentList() {
                 const status = STUDENT_STATUS[s.status] || { label: s.status, tone: 'slate' }
                 return (
                   <TR key={s.id}>
-                    <TD className="font-mono text-xs">{s.admission_no}</TD>
+                    <TD className="font-mono text-xs" hideOnMobile>{s.admission_no}</TD>
                     <TD className="font-medium text-slate-900">{fullName(s)}</TD>
-                    <TD>{GENDER_LABELS[s.gender]}</TD>
+                    <TD hideOnMobile>{GENDER_LABELS[s.gender]}</TD>
                     <TD>{classMap[s.class_id] || '—'}</TD>
                     <TD><Badge tone={status.tone}>{status.label}</Badge></TD>
                     <TD align="right">
@@ -134,7 +134,7 @@ export default function StudentList() {
                         {can('students.edit') && (
                           <button
                             onClick={() => openEdit(s)}
-                            className="rounded-lg p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600"
+                            className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600"
                             title="Hariri"
                           >
                             <Pencil className="h-4 w-4" />
@@ -143,7 +143,7 @@ export default function StudentList() {
                         {can('students.delete') && (
                           <button
                             onClick={() => setDeleting(s)}
-                            className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
+                            className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
                             title="Futa"
                           >
                             <Trash2 className="h-4 w-4" />

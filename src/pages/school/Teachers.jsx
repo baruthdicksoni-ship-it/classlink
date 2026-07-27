@@ -127,11 +127,11 @@ export default function Teachers() {
                   <TD align="right">
                     {can('teachers.edit') && (
                       <div className="flex justify-end gap-1">
-                        <button onClick={() => openEdit(t)} className="rounded-lg p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
+                        <button onClick={() => openEdit(t)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
                           <Pencil className="h-4 w-4" />
                         </button>
                         {can('teachers.delete') && (
-                          <button onClick={() => setDeleting(t)} className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                          <button onClick={() => setDeleting(t)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
                             <Trash2 className="h-4 w-4" />
                           </button>
                         )}

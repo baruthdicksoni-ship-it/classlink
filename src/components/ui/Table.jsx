@@ -1,7 +1,7 @@
-export function Table({ children, className = '' }) {
+export function Table({ children, className = '', minWidth = '640px' }) {
   return (
-    <div className={`overflow-x-auto ${className}`}>
-      <table className="w-full text-sm">{children}</table>
+    <div className={`-mx-px overflow-x-auto ${className}`}>
+      <table className="w-full text-sm" style={{ minWidth }}>{children}</table>
     </div>
   )
 }
@@ -13,9 +13,10 @@ export function THead({ columns = [] }) {
         {columns.map((c, i) => (
           <th
             key={i}
-            className={`px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider
-                        text-slate-500 whitespace-nowrap border-b border-slate-200
-                        ${c.align === 'right' ? 'text-right' : ''}`}
+            className={`px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider
+                        text-slate-500 whitespace-nowrap border-b border-slate-200 sm:px-6
+                        ${c.align === 'right' ? 'text-right' : ''}
+                        ${c.hideOnMobile ? 'hidden md:table-cell' : ''}`}
             style={c.width ? { width: c.width } : undefined}
           >
             {c.label}
@@ -41,9 +42,9 @@ export function TR({ children, onClick, className = '' }) {
   )
 }
 
-export function TD({ children, align, className = '' }) {
+export function TD({ children, align, className = '', hideOnMobile = false }) {
   return (
-    <td className={`px-6 py-4 text-slate-600 ${align === 'right' ? 'text-right' : ''} ${className}`}>
+    <td className={`px-4 py-4 text-slate-600 sm:px-6 ${align === 'right' ? 'text-right' : ''} ${hideOnMobile ? 'hidden md:table-cell' : ''} ${className}`}>
       {children}
     </td>
   )
