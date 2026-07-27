@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, Users, UserCog, GraduationCap, BookOpen, School,
-  ClipboardCheck, FileText, Wallet, Megaphone, BarChart3,
+  ClipboardCheck, FileText, FileBarChart, Wallet, Megaphone, BarChart3,
   Settings, Building2, ShieldCheck
 } from 'lucide-react'
 
@@ -49,6 +49,12 @@ export const SCHOOL_NAV = [
     section: 'Fedha',
     items: [
       { to: '/app/fees', label: 'Ada', icon: Wallet, permission: 'fees.view' }
+    ]
+  },
+  {
+    section: 'Ripoti',
+    items: [
+      { to: '/app/reports', label: 'Ripoti', icon: FileBarChart, permission: 'reports.view' }
     ]
   },
   {
