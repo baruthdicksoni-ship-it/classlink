@@ -34,7 +34,8 @@ export const SCHOOL_NAV = [
       { to: '/app/classes',  label: 'Madarasa', icon: School,   permission: 'classes.view' },
       { to: '/app/subjects', label: 'Masomo',   icon: BookOpen, permission: 'subjects.view' },
       { to: '/app/exams',    label: 'Mitihani', icon: FileText, permission: 'exams.view' },
-      { to: '/app/results',  label: 'Matokeo',  icon: BarChart3, permission: 'results.view' }
+      { to: '/app/results',  label: 'Matokeo',  icon: BarChart3, permission: 'results.view' },
+      { to: '/app/report-cards', label: 'Report Card', icon: FileText, permission: 'reports.view' }
     ]
   },
   {

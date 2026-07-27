@@ -54,3 +54,12 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Kuchapisha — report card pekee */
+@media print {
+  body { background: white !important; }
+  /* Ficha sidebar, topbar, na vitu visivyohitajika */
+  aside, header, .print\:hidden { display: none !important; }
+  main { padding: 0 !important; }
+  .card { box-shadow: none !important; border: none !important; }
+}

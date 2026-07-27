@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { Plus, Pencil, Trash2, FileText, Eye, EyeOff } from 'lucide-react'
+import { Plus, Pencil, Trash2, FileText, Send, CheckCircle2, Megaphone, RotateCcw } from 'lucide-react'
+import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/contexts/AuthContext'
 import { useTable, useInsert, useUpdate, useDelete } from '@/hooks/useSupabaseQuery'
 import { useToast } from '@/components/ui/Toast'
+import { useQueryClient } from '@tanstack/react-query'
 import PageHeader from '@/components/shared/PageHeader'
 import { Card } from '@/components/ui/Card'
 import { Table, THead, TBody, TR, TD } from '@/components/ui/Table'
@@ -25,17 +27,27 @@ const TYPES = [
   { value: 'national', label: 'Taifa' }
 ]
 
+// Hatua za mtihani
+const STATUS = {
+  draft:     { label: 'Rasimu',           tone: 'slate' },
+  submitted: { label: 'Inasubiri idhini', tone: 'amber' },
+  approved:  { label: 'Imeidhinishwa',    tone: 'blue' },
+  published: { label: 'Imetangazwa',      tone: 'green' }
+}
+
 const EMPTY = { name: '', exam_type: 'midterm', term_id: '', start_date: '', end_date: '', max_marks: 100 }
 
 export default function Exams() {
-  const { can } = useAuth()
+  const { can, role } = useAuth()
   const toast = useToast()
+  const qc = useQueryClient()
 
   const [open, setOpen] = useState(false)
   const [editing, setEditing] = useState(null)
   const [deleting, setDeleting] = useState(null)
   const [form, setForm] = useState(EMPTY)
   const [errors, setErrors] = useState({})
+  const [busy, setBusy] = useState(null)
 
   const { data: exams = [], isLoading } = useTable('exams', {
     order: { column: 'created_at', ascending: false }
@@ -46,6 +58,7 @@ export default function Exams() {
   const update = useUpdate('exams')
   const remove = useDelete('exams')
 
+  const isManager = role === 'school_owner' || role === 'school_admin'
   const set = (f) => (e) => setForm((p) => ({ ...p, [f]: e.target.value }))
   const termMap = Object.fromEntries(terms.map((t) => [t.id, t.name]))
 
@@ -68,11 +81,8 @@ export default function Exams() {
     if (!isValid) return
 
     const payload = {
-      name: form.name.trim(),
-      exam_type: form.exam_type,
-      term_id: form.term_id,
-      start_date: form.start_date || null,
-      end_date: form.end_date || null,
+      name: form.name.trim(), exam_type: form.exam_type, term_id: form.term_id,
+      start_date: form.start_date || null, end_date: form.end_date || null,
       max_marks: Number(form.max_marks) || 100
     }
 
@@ -83,11 +93,16 @@ export default function Exams() {
     } catch (e) { toast.error(e.message) }
   }
 
-  async function togglePublish(x) {
-    try {
-      await update.mutateAsync({ id: x.id, is_published: !x.is_published })
-      toast.success(x.is_published ? 'Matokeo yamefichwa.' : 'Matokeo yametangazwa.')
-    } catch (e) { toast.error(e.message) }
+  // Mtiririko wa kuidhinisha — kupitia RPC
+  async function runAction(fn, examId, successMsg) {
+    setBusy(examId)
+    const { error } = await supabase.rpc(fn, { p_exam_id: examId })
+    setBusy(null)
+    if (error) toast.error(error.message)
+    else {
+      toast.success(successMsg)
+      qc.invalidateQueries({ queryKey: ['exams'] })
+    }
   }
 
   async function confirmDelete() {
@@ -117,48 +132,84 @@ export default function Exams() {
             action={can('exams.manage') && <Button icon={Plus} onClick={openNew}>Ongeza mtihani</Button>}
           />
         ) : (
-          <Table>
+          <Table minWidth="720px">
             <THead columns={[
-              { label: 'Mtihani' }, { label: 'Aina' }, { label: 'Muhula' },
-              { label: 'Tarehe' }, { label: 'Hali' }, { label: '', width: 120, align: 'right' }
+              { label: 'Mtihani' }, { label: 'Aina', hideOnMobile: true }, { label: 'Muhula', hideOnMobile: true },
+              { label: 'Tarehe', hideOnMobile: true }, { label: 'Hali' }, { label: '', width: 170, align: 'right' }
             ]} />
             <TBody>
-              {exams.map((x) => (
-                <TR key={x.id}>
-                  <TD className="font-medium text-slate-900">{x.name}</TD>
-                  <TD>{TYPES.find((t) => t.value === x.exam_type)?.label || x.exam_type}</TD>
-                  <TD>{termMap[x.term_id] || '—'}</TD>
-                  <TD className="text-xs">{formatDate(x.start_date)}</TD>
-                  <TD>
-                    <Badge tone={x.is_published ? 'green' : 'slate'}>
-                      {x.is_published ? 'Yametangazwa' : 'Hayajatangazwa'}
-                    </Badge>
-                  </TD>
-                  <TD align="right">
-                    <div className="flex justify-end gap-1">
-                      {can('exams.publish') && (
-                        <button
-                          onClick={() => togglePublish(x)}
-                          className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600"
-                          title={x.is_published ? 'Ficha matokeo' : 'Tangaza matokeo'}
-                        >
-                          {x.is_published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </button>
-                      )}
-                      {can('exams.manage') && (
-                        <>
-                          <button onClick={() => openEdit(x)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
-                            <Pencil className="h-4 w-4" />
+              {exams.map((x) => {
+                const st = STATUS[x.status] || STATUS.draft
+                return (
+                  <TR key={x.id}>
+                    <TD className="font-medium text-slate-900">{x.name}</TD>
+                    <TD hideOnMobile>{TYPES.find((t) => t.value === x.exam_type)?.label || x.exam_type}</TD>
+                    <TD hideOnMobile>{termMap[x.term_id] || '—'}</TD>
+                    <TD className="text-xs" hideOnMobile>{formatDate(x.start_date)}</TD>
+                    <TD><Badge tone={st.tone}>{st.label}</Badge></TD>
+                    <TD align="right">
+                      <div className="flex items-center justify-end gap-1">
+                        {/* Mwalimu/manager: wasilisha rasimu */}
+                        {x.status === 'draft' && can('results.enter') && (
+                          <Button size="sm" variant="secondary" icon={Send}
+                                  loading={busy === x.id}
+                                  onClick={() => runAction('submit_exam', x.id, 'Matokeo yamewasilishwa kwa idhini.')}>
+                            Wasilisha
+                          </Button>
+                        )}
+
+                        {/* Mkuu: idhinisha */}
+                        {x.status === 'submitted' && isManager && (
+                          <>
+                            <Button size="sm" icon={CheckCircle2}
+                                    loading={busy === x.id}
+                                    onClick={() => runAction('approve_exam', x.id, 'Matokeo yameidhinishwa.')}>
+                              Idhinisha
+                            </Button>
+                            <button
+                              onClick={() => runAction('reject_exam', x.id, 'Matokeo yamerudishwa kwa marekebisho.')}
+                              className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-amber-50 hover:text-amber-600"
+                              title="Rudisha kwa marekebisho">
+                              <RotateCcw className="h-4 w-4" />
+                            </button>
+                          </>
+                        )}
+
+                        {/* Mkuu: tangaza baada ya idhini */}
+                        {x.status === 'approved' && isManager && (
+                          <Button size="sm" variant="subtle" icon={Megaphone}
+                                  loading={busy === x.id}
+                                  onClick={() => runAction('publish_exam', x.id, 'Matokeo yametangazwa.')}>
+                            Tangaza
+                          </Button>
+                        )}
+
+                        {/* Manager: rudisha iliyotangazwa (kufuta) */}
+                        {x.status === 'published' && isManager && (
+                          <button
+                            onClick={() => runAction('reject_exam', x.id, 'Matokeo yameondolewa.')}
+                            className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-amber-50 hover:text-amber-600"
+                            title="Ondoa kwenye matangazo">
+                            <RotateCcw className="h-4 w-4" />
                           </button>
-                          <button onClick={() => setDeleting(x)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </TD>
-                </TR>
-              ))}
+                        )}
+
+                        {/* Hariri/futa — rasimu pekee */}
+                        {can('exams.manage') && x.status === 'draft' && (
+                          <>
+                            <button onClick={() => openEdit(x)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-brand-50 hover:text-brand-600">
+                              <Pencil className="h-4 w-4" />
+                            </button>
+                            <button onClick={() => setDeleting(x)} className="rounded-lg p-2 sm:p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </TD>
+                  </TR>
+                )
+              })}
             </TBody>
           </Table>
         )}
