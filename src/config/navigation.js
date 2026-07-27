@@ -1,7 +1,7 @@
 import {
   LayoutDashboard, Users, UserCog, GraduationCap, BookOpen, School,
   ClipboardCheck, FileText, FileBarChart, Wallet, Megaphone, BarChart3,
-  Settings, Building2, ShieldCheck
+  Settings, Building2, ShieldCheck, ShieldAlert
 } from 'lucide-react'
 
 // Menu ya platform (super admin)
@@ -25,7 +25,8 @@ export const SCHOOL_NAV = [
     section: 'Wanafunzi',
     items: [
       { to: '/app/students',   label: 'Wanafunzi', icon: GraduationCap, permission: 'students.view' },
-      { to: '/app/attendance', label: 'Mahudhurio', icon: ClipboardCheck, permission: 'attendance.view' }
+      { to: '/app/attendance', label: 'Mahudhurio', icon: ClipboardCheck, permission: 'attendance.view' },
+      { to: '/app/discipline', label: 'Nidhamu', icon: ShieldAlert, permission: 'discipline.view' }
     ]
   },
   {

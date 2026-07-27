@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import {
   GraduationCap, Users, School, BookOpen, UserCheck, UserX,
   Wallet, TrendingUp, CalendarClock, FileText, ClipboardCheck,
-  Megaphone, Plus, AlertCircle
+  Megaphone, Plus, AlertCircle, ShieldAlert
 } from 'lucide-react'
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid
@@ -84,6 +84,14 @@ export default function Dashboard() {
       icon: ClipboardCheck,
       tone: 'amber',
       to: '/app/attendance'
+    },
+    {
+      label: 'Kesi za nidhamu zilizo wazi',
+      hint: 'Kesi zinazosubiri maamuzi',
+      count: s.alert_discipline_open || 0,
+      icon: ShieldAlert,
+      tone: 'amber',
+      to: can('discipline.view') ? '/app/discipline' : null
     }
   ], [s, can])
 

@@ -27,6 +27,7 @@ import Exams from '@/pages/school/Exams'
 import Results from '@/pages/school/Results'
 import ReportCard from '@/pages/school/ReportCard'
 import Reports from '@/pages/school/Reports'
+import Discipline from '@/pages/school/Discipline'
 import Teachers from '@/pages/school/Teachers'
 import SchoolUsers from '@/pages/school/SchoolUsers'
 import Fees from '@/pages/school/Fees'
@@ -102,6 +103,7 @@ export default function App() {
                   <Route path="results"       element={<ProtectedRoute permission="results.view"><Results /></ProtectedRoute>} />
                   <Route path="report-cards"  element={<ProtectedRoute permission="reports.view"><ReportCard /></ProtectedRoute>} />
                   <Route path="reports"       element={<ProtectedRoute permission="reports.view"><Reports /></ProtectedRoute>} />
+                  <Route path="discipline"    element={<ProtectedRoute permission="discipline.view"><Discipline /></ProtectedRoute>} />
                   <Route path="teachers"      element={<ProtectedRoute permission="teachers.view"><Teachers /></ProtectedRoute>} />
                   <Route path="users"         element={<ProtectedRoute permission="users.create"><SchoolUsers /></ProtectedRoute>} />
                   <Route path="fees"          element={<ProtectedRoute permission="fees.view"><Fees /></ProtectedRoute>} />
