@@ -43,6 +43,7 @@ export const PERMISSIONS = {
     'calendar.view', 'calendar.manage',
     'hr.view', 'hr.manage',
     'inventory.view', 'inventory.manage',
+    'documents.view', 'documents.manage',
     'leave.view', 'leave.request', 'leave.manage',
     'announcements.view', 'announcements.create',
     'reports.view',
@@ -66,6 +67,7 @@ export const PERMISSIONS = {
     'calendar.view', 'calendar.manage',
     'hr.view', 'hr.manage',
     'inventory.view', 'inventory.manage',
+    'documents.view', 'documents.manage',
     'leave.view', 'leave.request', 'leave.manage',
     'announcements.view', 'announcements.create',
     'reports.view',
@@ -84,6 +86,7 @@ export const PERMISSIONS = {
     'timetable.view',
     'calendar.view',
     'inventory.view',
+    'documents.view',
     'leave.request',
     'announcements.view', 'announcements.create',
     'reports.view'
@@ -96,6 +99,7 @@ export const PERMISSIONS = {
     'results.view.own',
     'fees.view.own',
     'calendar.view',
+    'documents.view',
     'announcements.view'
   ],
 
@@ -105,6 +109,7 @@ export const PERMISSIONS = {
     'results.view.own',
     'fees.view.own',
     'calendar.view',
+    'documents.view',
     'announcements.view'
   ],
 
@@ -112,6 +117,7 @@ export const PERMISSIONS = {
   staff: [
     'school.view',
     'calendar.view',
+    'documents.view',
     'leave.request',
     'announcements.view'
   ]
