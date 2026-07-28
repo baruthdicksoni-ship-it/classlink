@@ -17,6 +17,7 @@ export const ROLE_LABELS = {
   school_owner: 'Mmiliki wa Shule',
   school_admin: 'Mkuu wa Shule',
   teacher:      'Mwalimu',
+  staff:        'Mfanyakazi',
   parent:       'Mzazi',
   student:      'Mwanafunzi'
 }
@@ -40,6 +41,8 @@ export const PERMISSIONS = {
     'discipline.view', 'discipline.report', 'discipline.manage',
     'timetable.view', 'timetable.manage',
     'calendar.view', 'calendar.manage',
+    'hr.view', 'hr.manage',
+    'leave.view', 'leave.request', 'leave.manage',
     'announcements.view', 'announcements.create',
     'reports.view',
     'settings.manage'
@@ -60,6 +63,8 @@ export const PERMISSIONS = {
     'discipline.view', 'discipline.report', 'discipline.manage',
     'timetable.view', 'timetable.manage',
     'calendar.view', 'calendar.manage',
+    'hr.view', 'hr.manage',
+    'leave.view', 'leave.request', 'leave.manage',
     'announcements.view', 'announcements.create',
     'reports.view',
     'settings.manage'
@@ -76,6 +81,7 @@ export const PERMISSIONS = {
     'discipline.view', 'discipline.report',
     'timetable.view',
     'calendar.view',
+    'leave.request',
     'announcements.view', 'announcements.create',
     'reports.view'
   ],
@@ -96,6 +102,14 @@ export const PERMISSIONS = {
     'results.view.own',
     'fees.view.own',
     'calendar.view',
+    'announcements.view'
+  ],
+
+  // Mfanyakazi asiye mwalimu (mlinzi, mpishi, dereva, n.k.)
+  staff: [
+    'school.view',
+    'calendar.view',
+    'leave.request',
     'announcements.view'
   ]
 }
@@ -119,9 +133,9 @@ export const isFamilyRole = (role) => role === ROLES.PARENT || role === ROLES.ST
 
 // Nani anaweza kutengeneza role gani (lazima ilingane na Edge Function)
 export const CREATABLE_ROLES = {
-  super_admin:  ['super_admin', 'school_owner', 'school_admin', 'teacher', 'parent', 'student'],
-  school_owner: ['school_admin', 'teacher', 'parent', 'student'],
-  school_admin: ['teacher', 'parent', 'student']
+  super_admin:  ['super_admin', 'school_owner', 'school_admin', 'teacher', 'staff', 'parent', 'student'],
+  school_owner: ['school_admin', 'teacher', 'staff', 'parent', 'student'],
+  school_admin: ['teacher', 'staff', 'parent', 'student']
 }
 
 export function rolesCreatableBy(role) {

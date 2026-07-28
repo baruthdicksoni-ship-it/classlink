@@ -1,7 +1,7 @@
 import {
   LayoutDashboard, Users, UserCog, GraduationCap, BookOpen, School,
   ClipboardCheck, FileText, FileBarChart, Wallet, Megaphone, BarChart3,
-  Settings, Building2, ShieldCheck, ShieldAlert, CalendarClock, CalendarDays
+  Settings, Building2, ShieldCheck, ShieldAlert, CalendarClock, CalendarDays, Briefcase, CalendarCheck
 } from 'lucide-react'
 
 // Menu ya platform (super admin)
@@ -44,6 +44,8 @@ export const SCHOOL_NAV = [
     section: 'Wafanyakazi',
     items: [
       { to: '/app/teachers', label: 'Walimu', icon: Users, permission: 'teachers.view' },
+      { to: '/app/staff', label: 'Wafanyakazi', icon: Briefcase, permission: 'hr.view' },
+      { to: '/app/leave', label: 'Likizo', icon: CalendarCheck, permission: 'leave.request' },
       { to: '/app/users', label: 'Watumiaji', icon: UserCog, permission: 'users.create' }
     ]
   },

@@ -178,6 +178,7 @@ export function AuthProvider({ children }) {
     user: session?.user ?? null,
     profile,
     school,
+    userId: profile?.id ?? session?.user?.id ?? null,
     role: profile?.role ?? null,
     schoolId: profile?.school_id ?? null,
     loading,
