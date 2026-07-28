@@ -1,7 +1,7 @@
 import {
   LayoutDashboard, Users, UserCog, GraduationCap, BookOpen, School,
   ClipboardCheck, FileText, FileBarChart, Wallet, Megaphone, BarChart3,
-  Settings, Building2, ShieldCheck, ShieldAlert, CalendarClock
+  Settings, Building2, ShieldCheck, ShieldAlert, CalendarClock, CalendarDays
 } from 'lucide-react'
 
 // Menu ya platform (super admin)
@@ -62,6 +62,7 @@ export const SCHOOL_NAV = [
   {
     section: 'Mawasiliano',
     items: [
+      { to: '/app/calendar', label: 'Kalenda', icon: CalendarDays, permission: 'calendar.view' },
       { to: '/app/announcements', label: 'Matangazo', icon: Megaphone, permission: 'announcements.view' }
     ]
   },

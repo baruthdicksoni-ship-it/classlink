@@ -29,6 +29,7 @@ import ReportCard from '@/pages/school/ReportCard'
 import Reports from '@/pages/school/Reports'
 import Discipline from '@/pages/school/Discipline'
 import Timetable from '@/pages/school/Timetable'
+import Calendar from '@/pages/school/Calendar'
 import Teachers from '@/pages/school/Teachers'
 import SchoolUsers from '@/pages/school/SchoolUsers'
 import Fees from '@/pages/school/Fees'
@@ -106,6 +107,7 @@ export default function App() {
                   <Route path="reports"       element={<ProtectedRoute permission="reports.view"><Reports /></ProtectedRoute>} />
                   <Route path="discipline"    element={<ProtectedRoute permission="discipline.view"><Discipline /></ProtectedRoute>} />
                   <Route path="timetable"     element={<ProtectedRoute permission="timetable.view"><Timetable /></ProtectedRoute>} />
+                  <Route path="calendar"      element={<ProtectedRoute permission="calendar.view"><Calendar /></ProtectedRoute>} />
                   <Route path="teachers"      element={<ProtectedRoute permission="teachers.view"><Teachers /></ProtectedRoute>} />
                   <Route path="users"         element={<ProtectedRoute permission="users.create"><SchoolUsers /></ProtectedRoute>} />
                   <Route path="fees"          element={<ProtectedRoute permission="fees.view"><Fees /></ProtectedRoute>} />
