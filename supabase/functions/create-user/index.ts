@@ -21,9 +21,9 @@ const CORS = {
 
 // Nani anaweza kutengeneza role gani
 const ALLOWED: Record<string, string[]> = {
-  super_admin:  ['super_admin', 'school_owner', 'school_admin', 'teacher', 'parent', 'student'],
-  school_owner: ['school_admin', 'teacher', 'parent', 'student'],
-  school_admin: ['teacher', 'parent', 'student']
+  super_admin:  ['super_admin', 'school_owner', 'school_admin', 'teacher', 'staff', 'parent', 'student'],
+  school_owner: ['school_admin', 'teacher', 'staff', 'parent', 'student'],
+  school_admin: ['teacher', 'staff', 'parent', 'student']
 }
 
 function json(body: unknown, status = 200) {
