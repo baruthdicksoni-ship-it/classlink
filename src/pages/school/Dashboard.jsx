@@ -35,7 +35,18 @@ function QuickAction({ icon: Icon, label, to }) {
   )
 }
 
+import TeacherDashboard from './TeacherDashboard'
+
 export default function Dashboard() {
+  const { role } = useAuth()
+  // Mwalimu na staff wana dashibodi yao; manager wana ya shule nzima
+  if (role === 'teacher' || role === 'staff') {
+    return <TeacherDashboard />
+  }
+  return <HeadDashboard />
+}
+
+function HeadDashboard() {
   const { schoolId, profile, school, can } = useAuth()
 
   const { data: stats, isLoading, error } = useRpc(
