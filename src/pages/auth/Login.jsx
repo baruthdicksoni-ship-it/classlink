@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
-import { GraduationCap, AlertCircle } from 'lucide-react'
+import { AlertCircle } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
@@ -42,13 +42,15 @@ export default function Login() {
         <div className="pointer-events-none absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-brand-400/10 blur-2xl" />
 
         <div className="relative flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/95 shadow-lg shadow-brand-900/20">
-            <GraduationCap className="h-6 w-6 text-brand-700" />
+          <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white shadow-lg shadow-brand-900/20">
+            <img src="/brand/classlink-icon.png" alt="ClassLink" className="h-9 w-9 object-contain" />
           </div>
           <span className="text-xl font-bold text-white">ClassLink</span>
         </div>
 
         <div className="relative">
+          <img src="/brand/classlink-logo.png" alt="ClassLink"
+               className="mb-8 h-40 w-40 object-contain drop-shadow-2xl" />
           <h1 className="text-[2.6rem] font-bold leading-[1.1] tracking-tight text-white">
             Mfumo kamili wa<br />usimamizi wa shule
           </h1>
@@ -58,15 +60,15 @@ export default function Login() {
           </p>
         </div>
 
-        <p className="relative text-sm text-brand-200/80">© {new Date().getFullYear()} ClassLink</p>
+        <p className="relative text-sm text-brand-200/80">© {new Date().getFullYear()} ClassLink · Smart School Management System</p>
       </div>
 
       {/* Upande wa kulia — fomu */}
       <div className="flex w-full items-center justify-center bg-white px-6 lg:w-1/2">
         <div className="w-full max-w-sm">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600">
-              <GraduationCap className="h-6 w-6 text-white" />
+            <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl">
+              <img src="/brand/classlink-icon.png" alt="ClassLink" className="h-11 w-11 object-contain" />
             </div>
             <span className="text-xl font-bold text-slate-900">ClassLink</span>
           </div>
@@ -109,6 +111,11 @@ export default function Login() {
           <p className="mt-6 text-center text-xs text-slate-400">
             Umesahau nenosiri? Wasiliana na msimamizi wa shule yako.
           </p>
+
+          <div className="mt-8 border-t border-slate-100 pt-4 text-center">
+            <p className="text-xs text-slate-400">ClassLink · Smart School Management System</p>
+            <p className="mt-1 text-xs text-slate-300">Toleo 3.0 · © {new Date().getFullYear()}</p>
+          </div>
         </div>
       </div>
     </div>

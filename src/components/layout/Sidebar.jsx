@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { X, GraduationCap } from 'lucide-react'
+import { X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 
 function NavItem({ item, onNavigate }) {
@@ -59,8 +59,8 @@ export default function Sidebar({ nav = [], open, onClose, flat = false }) {
               {school?.logo_url ? (
                 <img src={school.logo_url} alt="" className="h-9 w-9 rounded-xl object-cover ring-2 ring-white/30" />
               ) : (
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/95 shadow-sm">
-                  <GraduationCap className="h-5 w-5 text-brand-600" />
+                <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-white/95 shadow-sm">
+                  <img src="/brand/classlink-icon.png" alt="ClassLink" className="h-8 w-8 object-contain" />
                 </div>
               )}
               <div className="min-w-0">
