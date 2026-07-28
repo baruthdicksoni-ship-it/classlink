@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import {
   GraduationCap, Users, School, BookOpen, UserCheck, UserX,
   Wallet, TrendingUp, CalendarClock, FileText, ClipboardCheck,
-  Megaphone, Plus, AlertCircle, ShieldAlert, CalendarDays
+  Megaphone, Plus, AlertCircle, ShieldAlert, CalendarDays, Package
 } from 'lucide-react'
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid
@@ -101,6 +101,14 @@ export default function Dashboard() {
       icon: ShieldAlert,
       tone: 'amber',
       to: can('discipline.view') ? '/app/discipline' : null
+    },
+    {
+      label: 'Vifaa vyenye stock ndogo',
+      hint: 'Vifaa vilivyofikia kiwango cha chini',
+      count: s.alert_low_stock || 0,
+      icon: Package,
+      tone: 'amber',
+      to: can('inventory.view') ? '/app/inventory' : null
     }
   ], [s, can])
 

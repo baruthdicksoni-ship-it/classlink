@@ -42,6 +42,7 @@ export const PERMISSIONS = {
     'timetable.view', 'timetable.manage',
     'calendar.view', 'calendar.manage',
     'hr.view', 'hr.manage',
+    'inventory.view', 'inventory.manage',
     'leave.view', 'leave.request', 'leave.manage',
     'announcements.view', 'announcements.create',
     'reports.view',
@@ -64,6 +65,7 @@ export const PERMISSIONS = {
     'timetable.view', 'timetable.manage',
     'calendar.view', 'calendar.manage',
     'hr.view', 'hr.manage',
+    'inventory.view', 'inventory.manage',
     'leave.view', 'leave.request', 'leave.manage',
     'announcements.view', 'announcements.create',
     'reports.view',
@@ -81,6 +83,7 @@ export const PERMISSIONS = {
     'discipline.view', 'discipline.report',
     'timetable.view',
     'calendar.view',
+    'inventory.view',
     'leave.request',
     'announcements.view', 'announcements.create',
     'reports.view'

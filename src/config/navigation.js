@@ -1,7 +1,7 @@
 import {
   LayoutDashboard, Users, UserCog, GraduationCap, BookOpen, School,
   ClipboardCheck, FileText, FileBarChart, Wallet, Megaphone, BarChart3,
-  Settings, Building2, ShieldCheck, ShieldAlert, CalendarClock, CalendarDays, Briefcase, CalendarCheck
+  Settings, Building2, ShieldCheck, ShieldAlert, CalendarClock, CalendarDays, Briefcase, CalendarCheck, Package
 } from 'lucide-react'
 
 // Menu ya platform (super admin)
@@ -59,6 +59,12 @@ export const SCHOOL_NAV = [
     section: 'Ripoti',
     items: [
       { to: '/app/reports', label: 'Ripoti', icon: FileBarChart, permission: 'reports.view' }
+    ]
+  },
+  {
+    section: 'Uendeshaji',
+    items: [
+      { to: '/app/inventory', label: 'Vifaa', icon: Package, permission: 'inventory.view' }
     ]
   },
   {
