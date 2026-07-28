@@ -38,6 +38,7 @@ export const PERMISSIONS = {
     'results.view', 'results.enter', 'results.edit',
     'fees.view', 'fees.manage', 'fees.collect',   // FEDHA — owner pekee
     'discipline.view', 'discipline.report', 'discipline.manage',
+    'timetable.view', 'timetable.manage',
     'announcements.view', 'announcements.create',
     'reports.view',
     'settings.manage'
@@ -56,6 +57,7 @@ export const PERMISSIONS = {
     'results.view', 'results.enter', 'results.edit',
     'fees.view',                                // AONA ada, lakini SI kutengeneza/kupokea
     'discipline.view', 'discipline.report', 'discipline.manage',
+    'timetable.view', 'timetable.manage',
     'announcements.view', 'announcements.create',
     'reports.view',
     'settings.manage'
@@ -70,6 +72,7 @@ export const PERMISSIONS = {
     'exams.view', 'exams.manage',
     'results.view', 'results.enter',
     'discipline.view', 'discipline.report',
+    'timetable.view',
     'announcements.view', 'announcements.create',
     'reports.view'
   ],

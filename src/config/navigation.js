@@ -1,7 +1,7 @@
 import {
   LayoutDashboard, Users, UserCog, GraduationCap, BookOpen, School,
   ClipboardCheck, FileText, FileBarChart, Wallet, Megaphone, BarChart3,
-  Settings, Building2, ShieldCheck, ShieldAlert
+  Settings, Building2, ShieldCheck, ShieldAlert, CalendarClock
 } from 'lucide-react'
 
 // Menu ya platform (super admin)
@@ -34,6 +34,7 @@ export const SCHOOL_NAV = [
     items: [
       { to: '/app/classes',  label: 'Madarasa', icon: School,   permission: 'classes.view' },
       { to: '/app/subjects', label: 'Masomo',   icon: BookOpen, permission: 'subjects.view' },
+      { to: '/app/timetable', label: 'Ratiba',  icon: CalendarClock, permission: 'timetable.view' },
       { to: '/app/exams',    label: 'Mitihani', icon: FileText, permission: 'exams.view' },
       { to: '/app/results',  label: 'Matokeo',  icon: BarChart3, permission: 'results.view' },
       { to: '/app/report-cards', label: 'Report Card', icon: FileText, permission: 'reports.view' }
