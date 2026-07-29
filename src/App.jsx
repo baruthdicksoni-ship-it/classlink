@@ -12,6 +12,7 @@ import { ROLES } from '@/config/roles'
 import { PLATFORM_NAV, SCHOOL_NAV, FAMILY_NAV } from '@/config/navigation'
 
 import Login from '@/pages/auth/Login'
+import Landing from '@/pages/Landing'
 import NotFound from '@/pages/NotFound'
 
 import PlatformDashboard from '@/pages/platform/PlatformDashboard'
@@ -57,7 +58,7 @@ function HomeRedirect() {
   const { loading, isAuthenticated, role } = useAuth()
 
   if (loading) return <Spinner full />
-  if (!isAuthenticated) return <Navigate to="/ingia" replace />
+  if (!isAuthenticated) return <Landing />
 
   if (role === ROLES.SUPER_ADMIN) return <Navigate to="/platform" replace />
   if (role === ROLES.SCHOOL_OWNER || role === ROLES.SCHOOL_ADMIN || role === ROLES.TEACHER) {
