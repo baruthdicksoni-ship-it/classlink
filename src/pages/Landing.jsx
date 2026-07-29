@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '@/contexts/AuthContext'
+import { ROLES } from '@/config/roles'
 import {
   GraduationCap, ClipboardCheck, FileText, Wallet, ShieldAlert,
   CalendarDays, Users, BarChart3, Menu, X, ArrowRight, Check,
@@ -41,6 +43,17 @@ function Logo({ className = 'h-9 w-9' }) {
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { isAuthenticated, role } = useAuth()
+
+  // Kama umeingia, "Ingia" inakupeleka dashibodi yako moja kwa moja.
+  // Kama hujaingia, inakupeleka ukurasa wa kuingia.
+  let loginTo = '/ingia'
+  if (isAuthenticated) {
+    if (role === ROLES.SUPER_ADMIN) loginTo = '/platform'
+    else if (role === ROLES.SCHOOL_OWNER || role === ROLES.SCHOOL_ADMIN || role === ROLES.TEACHER || role === ROLES.STAFF) loginTo = '/app'
+    else loginTo = '/portal'
+  }
+  const loginLabel = isAuthenticated ? 'Nenda kwenye Dashibodi' : 'Ingia'
 
   return (
     <div className="min-h-screen bg-white">
@@ -59,10 +72,12 @@ export default function Landing() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
-            <Link to="/ingia" className="text-sm font-medium text-slate-700 hover:text-slate-900">Ingia</Link>
-            <Link to="/ingia"
+            {!isAuthenticated && (
+              <Link to={loginTo} className="text-sm font-medium text-slate-700 hover:text-slate-900">Ingia</Link>
+            )}
+            <Link to={loginTo}
                   className="inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-brand-700">
-              Anza sasa <ArrowRight className="h-4 w-4" />
+              {isAuthenticated ? 'Nenda kwenye Dashibodi' : 'Anza sasa'} <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
@@ -77,7 +92,7 @@ export default function Landing() {
               <a href="#huduma" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-slate-600">Huduma</a>
               <a href="#faida" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-slate-600">Faida</a>
               <a href="#watumiaji" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-slate-600">Watumiaji</a>
-              <Link to="/ingia" className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-medium text-white">
+              <Link to={loginTo} className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-medium text-white">
                 Ingia <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -106,9 +121,9 @@ export default function Landing() {
                 mitihani, matokeo, ada na zaidi. Yote mahali pamoja, kwa Kiswahili.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link to="/ingia"
+                <Link to={loginTo}
                       className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3 text-base font-medium text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md">
-                  Ingia kwenye mfumo <ArrowRight className="h-5 w-5" />
+                  {loginLabel} <ArrowRight className="h-5 w-5" />
                 </Link>
                 <a href="#huduma"
                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-slate-50">
@@ -271,9 +286,9 @@ export default function Landing() {
               <p className="mx-auto mt-4 max-w-xl text-lg text-brand-100">
                 Ingia kwenye mfumo wa ClassLink na uanze kuendesha shule yako kwa uweledi.
               </p>
-              <Link to="/ingia"
+              <Link to={loginTo}
                     className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-brand-700 shadow-lg transition-transform hover:scale-105">
-                Ingia sasa <ArrowRight className="h-5 w-5" />
+                {isAuthenticated ? 'Nenda kwenye Dashibodi' : 'Ingia sasa'} <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
           </div>
@@ -294,7 +309,7 @@ export default function Landing() {
             <div className="flex items-center gap-6 text-sm text-slate-500">
               <a href="#huduma" className="hover:text-slate-900">Huduma</a>
               <a href="#faida" className="hover:text-slate-900">Faida</a>
-              <Link to="/ingia" className="hover:text-slate-900">Ingia</Link>
+              <Link to={loginTo} className="hover:text-slate-900">Ingia</Link>
             </div>
           </div>
           <div className="mt-8 border-t border-slate-100 pt-6 text-center text-sm text-slate-400">

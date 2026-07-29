@@ -55,16 +55,11 @@ const queryClient = new QueryClient({
 
 // Mtumiaji anapofungua "/" tunampeleka mahali panapomfaa
 function HomeRedirect() {
-  const { loading, isAuthenticated, role } = useAuth()
-
+  const { loading } = useAuth()
   if (loading) return <Spinner full />
-  if (!isAuthenticated) return <Landing />
-
-  if (role === ROLES.SUPER_ADMIN) return <Navigate to="/platform" replace />
-  if (role === ROLES.SCHOOL_OWNER || role === ROLES.SCHOOL_ADMIN || role === ROLES.TEACHER) {
-    return <Navigate to="/app" replace />
-  }
-  return <Navigate to="/portal" replace />
+  // Landing inaonekana kwa kila mtu — aliyeingia na asiyeingia.
+  // Vitufe vya Landing vinaelekeza mahali sahihi kulingana na hali.
+  return <Landing />
 }
 
 export default function App() {

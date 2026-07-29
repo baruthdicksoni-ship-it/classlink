@@ -8,6 +8,7 @@ export const ROLES = {
   SCHOOL_OWNER: 'school_owner',
   SCHOOL_ADMIN: 'school_admin',
   TEACHER:      'teacher',
+  STAFF:        'staff',
   PARENT:       'parent',
   STUDENT:      'student'
 }
