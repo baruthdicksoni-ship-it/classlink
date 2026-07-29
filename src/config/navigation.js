@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, Users, UserCog, GraduationCap, BookOpen, School,
-  ClipboardCheck, FileText, FileBarChart, Wallet, Receipt, Megaphone, BarChart3,  Settings, Building2, ShieldCheck, ShieldAlert, CalendarClock, CalendarDays, Briefcase, CalendarCheck, Package, FolderOpen
+  ClipboardCheck, FileText, FileBarChart, Wallet, Receipt, Layers, Megaphone, BarChart3,  Settings, Building2, ShieldCheck, ShieldAlert, CalendarClock, CalendarDays, Briefcase, CalendarCheck, Package, FolderOpen
 } from 'lucide-react'
 
 // Menu ya platform (super admin)
@@ -52,6 +52,7 @@ export const SCHOOL_NAV = [
     section: 'Fedha',
     items: [
       { to: '/app/fees', label: 'Ada', icon: Wallet, permission: 'fees.view' },
+      { to: '/app/fee-structures', label: 'Muundo wa Ada', icon: Layers, permission: 'fees.manage' },
       { to: '/app/expenses', label: 'Matumizi', icon: Receipt, permission: 'expenses.view' }
     ]
   },
