@@ -49,7 +49,7 @@ export default function Sidebar({ nav = [], open, onClose, flat = false }) {
 
       <aside
         className={`fixed inset-y-0 left-0 z-40 w-64 bg-gradient-to-b from-brand-700 via-brand-600 to-brand-500
-                    transition-transform lg:translate-x-0 lg:static lg:z-auto
+                    transition-transform lg:translate-x-0
                     ${open ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="flex h-full flex-col">
