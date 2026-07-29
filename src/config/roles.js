@@ -8,6 +8,7 @@ export const ROLES = {
   SCHOOL_OWNER: 'school_owner',
   SCHOOL_ADMIN: 'school_admin',
   TEACHER:      'teacher',
+  ACCOUNTANT:   'accountant',
   STAFF:        'staff',
   PARENT:       'parent',
   STUDENT:      'student'
@@ -18,6 +19,7 @@ export const ROLE_LABELS = {
   school_owner: 'Mmiliki wa Shule',
   school_admin: 'Mkuu wa Shule',
   teacher:      'Mwalimu',
+  accountant:   'Mhasibu',
   staff:        'Mfanyakazi',
   parent:       'Mzazi',
   student:      'Mwanafunzi'
@@ -121,6 +123,18 @@ export const PERMISSIONS = {
     'documents.view',
     'leave.request',
     'announcements.view'
+  ],
+
+  accountant: [
+    'school.view',
+    'students.view',                              // aone majina ya wanafunzi (kwa ankara)
+    'fees.view', 'fees.manage', 'fees.collect',   // FEDHA — kamili
+    'expenses.view', 'expenses.manage',           // MATUMIZI
+    'reports.view',                               // ripoti za fedha
+    'calendar.view',
+    'documents.view',
+    'leave.request',
+    'announcements.view'
   ]
 }
 
@@ -143,9 +157,9 @@ export const isFamilyRole = (role) => role === ROLES.PARENT || role === ROLES.ST
 
 // Nani anaweza kutengeneza role gani (lazima ilingane na Edge Function)
 export const CREATABLE_ROLES = {
-  super_admin:  ['super_admin', 'school_owner', 'school_admin', 'teacher', 'staff', 'parent', 'student'],
-  school_owner: ['school_admin', 'teacher', 'staff', 'parent', 'student'],
-  school_admin: ['teacher', 'staff', 'parent', 'student']
+  super_admin:  ['super_admin', 'school_owner', 'school_admin', 'teacher', 'accountant', 'staff', 'parent', 'student'],
+  school_owner: ['school_admin', 'teacher', 'accountant', 'staff', 'parent', 'student'],
+  school_admin: ['teacher', 'accountant', 'staff', 'parent', 'student']
 }
 
 export function rolesCreatableBy(role) {

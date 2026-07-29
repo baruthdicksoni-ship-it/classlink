@@ -36,12 +36,16 @@ function QuickAction({ icon: Icon, label, to }) {
 }
 
 import TeacherDashboard from './TeacherDashboard'
+import AccountantDashboard from './AccountantDashboard'
 
 export default function Dashboard() {
   const { role } = useAuth()
-  // Mwalimu na staff wana dashibodi yao; manager wana ya shule nzima
+  // Kila cheo na dashibodi yake
   if (role === 'teacher' || role === 'staff') {
     return <TeacherDashboard />
+  }
+  if (role === 'accountant') {
+    return <AccountantDashboard />
   }
   return <HeadDashboard />
 }

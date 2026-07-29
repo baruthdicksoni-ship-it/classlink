@@ -38,6 +38,7 @@ import Documents from '@/pages/school/Documents'
 import Teachers from '@/pages/school/Teachers'
 import SchoolUsers from '@/pages/school/SchoolUsers'
 import Fees from '@/pages/school/Fees'
+import Expenses from '@/pages/school/Expenses'
 import Announcements from '@/pages/school/Announcements'
 import Settings from '@/pages/school/Settings'
 
@@ -115,6 +116,7 @@ export default function App() {
                   <Route path="teachers"      element={<ProtectedRoute permission="teachers.view"><Teachers /></ProtectedRoute>} />
                   <Route path="users"         element={<ProtectedRoute permission="users.create"><SchoolUsers /></ProtectedRoute>} />
                   <Route path="fees"          element={<ProtectedRoute permission="fees.view"><Fees /></ProtectedRoute>} />
+                  <Route path="expenses"      element={<ProtectedRoute permission="expenses.view"><Expenses /></ProtectedRoute>} />
                   <Route path="announcements" element={<ProtectedRoute permission="announcements.view"><Announcements /></ProtectedRoute>} />
                   <Route path="settings"      element={<ProtectedRoute permission="settings.manage"><Settings /></ProtectedRoute>} />
                 </Route>
