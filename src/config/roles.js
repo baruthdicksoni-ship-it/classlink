@@ -33,26 +33,38 @@ export const PERMISSIONS = {
 
   // Mmiliki: kila kitu cha shule yake, pamoja na fedha na kutengeneza wakuu
   school_owner: [
+    // === KUONA: taarifa zote za shule ===
     'school.view', 'school.edit',
-    'users.create', 'users.manage',            // anaweza kutengeneza mkuu, mwalimu, n.k.
-    'students.view', 'students.create', 'students.edit', 'students.delete',
-    'teachers.view', 'teachers.create', 'teachers.edit', 'teachers.delete',
-    'classes.view', 'classes.manage',
-    'subjects.view', 'subjects.manage',
-    'attendance.view', 'attendance.record', 'attendance.edit',
-    'exams.view', 'exams.manage', 'exams.publish',
-    'results.view', 'results.enter', 'results.edit',
-    'fees.view', 'fees.manage', 'fees.collect',   // FEDHA — owner pekee
-    'discipline.view', 'discipline.report', 'discipline.manage',
-    'timetable.view', 'timetable.manage',
-    'calendar.view', 'calendar.manage',
-    'hr.view', 'hr.manage',
-    'inventory.view', 'inventory.manage',
-    'documents.view', 'documents.manage',
-    'leave.view', 'leave.request', 'leave.manage',
+    'students.view',
+    'teachers.view',
+    'classes.view',
+    'subjects.view',
+    'attendance.view',
+    'exams.view',
+    'results.view',
+    'discipline.view',
+    'timetable.view',
+    'calendar.view',
+    'inventory.view',
+    'documents.view',
+    'leave.view',
+
+    // === FEDHA: kuona tu (mhasibu ndiye anashughulikia) ===
+    'fees.view',
+    'expenses.view',
+
+    // === KUSIMAMIA: mambo ya mmiliki-mfanyabiashara ===
+    'users.create', 'users.manage',            // kuajiri/kuondoa mkuu na wengine
+    'settings.manage',                         // logo, taarifa, mwaka wa masomo
+    'reports.view',                            // ripoti zote
+    'subscription.manage',                     // usajili wa ClassLink
+    'audit.view',                              // kufuatilia shughuli
+    'documents.manage',                        // nyaraka rasmi za shule
     'announcements.view', 'announcements.create',
-    'reports.view',
-    'settings.manage'
+
+    // === DHARURA: kufuta/kubadilisha taarifa muhimu (si za kila siku) ===
+    'students.delete',                         // kufuta mwanafunzi (dharura)
+    'teachers.delete'                          // kuondoa mwalimu (dharura)
   ],
 
   // Mkuu: taaluma na utawala, LAKINI SI fedha, na hawezi kutengeneza wakuu wengine
