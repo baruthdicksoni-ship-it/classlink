@@ -7,6 +7,7 @@ export const ROLES = {
   SUPER_ADMIN:  'super_admin',
   SCHOOL_OWNER: 'school_owner',
   SCHOOL_ADMIN: 'school_admin',
+  ACADEMIC_MASTER: 'academic_master',
   TEACHER:      'teacher',
   ACCOUNTANT:   'accountant',
   STAFF:        'staff',
@@ -18,6 +19,7 @@ export const ROLE_LABELS = {
   super_admin:  'Msimamizi Mkuu',
   school_owner: 'Mmiliki wa Shule',
   school_admin: 'Mkuu wa Shule',
+  academic_master: 'Mkuu wa Taaluma',
   teacher:      'Mwalimu',
   accountant:   'Mhasibu',
   staff:        'Mfanyakazi',
@@ -75,6 +77,24 @@ export const PERMISSIONS = {
     'announcements.view', 'announcements.create',
     'reports.view',
     'settings.manage'
+  ],
+
+  academic_master: [
+    'school.view',
+    'students.view',
+    'classes.view', 'classes.manage',
+    'subjects.view', 'subjects.manage',
+    'attendance.view', 'attendance.record',
+    'exams.view', 'exams.manage', 'exams.approve',
+    'results.view', 'results.enter', 'results.approve',
+    'discipline.view', 'discipline.report', 'discipline.manage',
+    'timetable.view', 'timetable.manage',
+    'calendar.view', 'calendar.manage',
+    'inventory.view',
+    'documents.view',
+    'leave.request',
+    'announcements.view', 'announcements.create',
+    'reports.view'
   ],
 
   teacher: [
@@ -157,9 +177,9 @@ export const isFamilyRole = (role) => role === ROLES.PARENT || role === ROLES.ST
 
 // Nani anaweza kutengeneza role gani (lazima ilingane na Edge Function)
 export const CREATABLE_ROLES = {
-  super_admin:  ['super_admin', 'school_owner', 'school_admin', 'teacher', 'accountant', 'staff', 'parent', 'student'],
-  school_owner: ['school_admin', 'teacher', 'accountant', 'staff', 'parent', 'student'],
-  school_admin: ['teacher', 'accountant', 'staff', 'parent', 'student']
+  super_admin:  ['super_admin', 'school_owner', 'school_admin', 'academic_master', 'teacher', 'accountant', 'staff', 'parent', 'student'],
+  school_owner: ['school_admin', 'academic_master', 'teacher', 'accountant', 'staff', 'parent', 'student'],
+  school_admin: ['academic_master', 'teacher', 'accountant', 'staff', 'parent', 'student']
 }
 
 export function rolesCreatableBy(role) {

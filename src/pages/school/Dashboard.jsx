@@ -37,6 +37,7 @@ function QuickAction({ icon: Icon, label, to }) {
 
 import TeacherDashboard from './TeacherDashboard'
 import AccountantDashboard from './AccountantDashboard'
+import AcademicMasterDashboard from './AcademicMasterDashboard'
 
 export default function Dashboard() {
   const { role } = useAuth()
@@ -46,6 +47,9 @@ export default function Dashboard() {
   }
   if (role === 'accountant') {
     return <AccountantDashboard />
+  }
+  if (role === 'academic_master') {
+    return <AcademicMasterDashboard />
   }
   return <HeadDashboard />
 }
